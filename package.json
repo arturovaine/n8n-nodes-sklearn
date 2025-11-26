@@ -51,7 +51,9 @@
       "dist/nodes/SklearnPCA/SklearnPCA.node.js",
       "dist/nodes/SklearnTrainTestSplit/SklearnTrainTestSplit.node.js",
       "dist/nodes/SklearnMetrics/SklearnMetrics.node.js",
-      "dist/nodes/SklearnDatasets/SklearnDatasets.node.js"
+      "dist/nodes/SklearnDatasets/SklearnDatasets.node.js",
+      "dist/nodes/SklearnCrossValidation/SklearnCrossValidation.node.js",
+      "dist/nodes/SklearnGridSearchCV/SklearnGridSearchCV.node.js"
     ]
   },
   "devDependencies": {
