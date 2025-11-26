@@ -53,7 +53,15 @@
       "dist/nodes/SklearnMetrics/SklearnMetrics.node.js",
       "dist/nodes/SklearnDatasets/SklearnDatasets.node.js",
       "dist/nodes/SklearnCrossValidation/SklearnCrossValidation.node.js",
-      "dist/nodes/SklearnGridSearchCV/SklearnGridSearchCV.node.js"
+      "dist/nodes/SklearnGridSearchCV/SklearnGridSearchCV.node.js",
+      "dist/nodes/SklearnDBSCAN/SklearnDBSCAN.node.js",
+      "dist/nodes/SklearnAgglomerativeClustering/SklearnAgglomerativeClustering.node.js",
+      "dist/nodes/SklearnIsolationForest/SklearnIsolationForest.node.js",
+      "dist/nodes/SklearnSimpleImputer/SklearnSimpleImputer.node.js",
+      "dist/nodes/SklearnPolynomialFeatures/SklearnPolynomialFeatures.node.js",
+      "dist/nodes/SklearnRobustScaler/SklearnRobustScaler.node.js",
+      "dist/nodes/SklearnTfidfVectorizer/SklearnTfidfVectorizer.node.js",
+      "dist/nodes/SklearnFeatureSelection/SklearnFeatureSelection.node.js"
     ]
   },
   "devDependencies": {
