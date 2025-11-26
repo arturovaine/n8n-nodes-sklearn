@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n8n-nodes-sklearn Icons</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .icon-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .icon-card h3 {
+            margin: 0 0 15px 0;
+            color: #444;
+            font-size: 16px;
+        }
+        .icon-container {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 10px;
+        }
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+        .info {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>n8n-nodes-sklearn Icon Gallery</h1>
+
+    <div class="icon-grid">
+        <!-- Scikit-learn Icon -->
+        <div class="icon-card">
+            <h3>Scikit-learn</h3>
+            <div class="icon-container">
+                <img src="nodes/SklearnLinearRegression/sklearn.svg" alt="Scikit-learn">
+            </div>
+            <div class="info">Used by: Linear Regression, Standard Scaler, Datasets</div>
+        </div>
+
+        <!-- MLflow Icon -->
+        <div class="icon-card">
+            <h3>MLflow</h3>
+            <div class="icon-container">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                    <rect width="100" height="100" fill="#0194E2"/>
+                    <path d="M25 30 L50 20 L75 30 L75 70 L50 80 L25 70 Z" fill="white" stroke="white" stroke-width="2"/>
+                    <circle cx="50" cy="35" r="3" fill="#0194E2"/>
+                    <circle cx="40" cy="45" r="3" fill="#0194E2"/>
+                    <circle cx="60" cy="45" r="3" fill="#0194E2"/>
+                    <circle cx="35" cy="55" r="3" fill="#0194E2"/>
+                    <circle cx="50" cy="55" r="3" fill="#0194E2"/>
+                    <circle cx="65" cy="55" r="3" fill="#0194E2"/>
+                    <line x1="50" y1="35" x2="40" y2="45" stroke="#0194E2" stroke-width="2"/>
+                    <line x1="50" y1="35" x2="60" y2="45" stroke="#0194E2" stroke-width="2"/>
+                    <line x1="40" y1="45" x2="35" y2="55" stroke="#0194E2" stroke-width="2"/>
+                    <line x1="40" y1="45" x2="50" y2="55" stroke="#0194E2" stroke-width="2"/>
+                    <line x1="60" y1="45" x2="50" y2="55" stroke="#0194E2" stroke-width="2"/>
+                    <line x1="60" y1="45" x2="65" y2="55" stroke="#0194E2" stroke-width="2"/>
+                </svg>
+            </div>
+            <div class="info">Used by: MLflow tracking node</div>
+        </div>
+    </div>
+
+    <div style="margin-top: 50px; padding: 20px; background: white; border-radius: 8px;">
+        <h2>Available Nodes</h2>
+        <ul>
+            <li><strong>Sklearn Linear Regression</strong> - Train and predict with linear regression</li>
+            <li><strong>Sklearn Standard Scaler</strong> - Normalize features</li>
+            <li><strong>Sklearn Datasets</strong> - Load sample datasets (Iris, Diabetes, Wine, etc.)</li>
+            <li><strong>Sklearn MLflow</strong> - Track experiments and log models (NEW!)</li>
+        </ul>
+    </div>
+</body>
+</html>
