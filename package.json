@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-sklearn",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "n8n nodes for scikit-learn machine learning algorithms",
   "keywords": [
     "n8n-community-node-package",
