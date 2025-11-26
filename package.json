@@ -27,7 +27,7 @@
     "format": "prettier nodes --write",
     "lint": "eslint nodes/**/*.ts",
     "lintfix": "eslint nodes package.json --fix",
-    "prepublishOnly": "npm run build && npm run lint -c .eslintrc.prepublish.js nodes package.json"
+    "prepublishOnly": "npm run build && npm run lint"
   },
   "files": [
     "dist"
