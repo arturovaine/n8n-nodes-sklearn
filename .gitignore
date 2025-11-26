@@ -27,3 +27,14 @@ Thumbs.db
 # Environment
 .env
 .env.local
+
+# Documentation (keep only README.md)
+DATASETS_GUIDE.md
+EXAMPLES.md
+INSTALLATION.md
+MLFLOW_GUIDE.md
+PROJECT_SUMMARY.md
+QUICKSTART.md
+SETUP_LOCAL.md
+TIPS.md
+TROUBLESHOOTING.md
