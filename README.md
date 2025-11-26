@@ -282,7 +282,7 @@ MIT
 ## Support
 
 For issues and questions:
-- GitHub Issues: [Your repository URL]
+- GitHub Issues: https://github.com/arturovaine/n8n-nodes-sklearn/issues
 - n8n Community Forum: https://community.n8n.io/
 
 ## Acknowledgments
