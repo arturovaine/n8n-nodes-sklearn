@@ -61,7 +61,20 @@
       "dist/nodes/SklearnPolynomialFeatures/SklearnPolynomialFeatures.node.js",
       "dist/nodes/SklearnRobustScaler/SklearnRobustScaler.node.js",
       "dist/nodes/SklearnTfidfVectorizer/SklearnTfidfVectorizer.node.js",
-      "dist/nodes/SklearnFeatureSelection/SklearnFeatureSelection.node.js"
+      "dist/nodes/SklearnFeatureSelection/SklearnFeatureSelection.node.js",
+      "dist/nodes/SklearnSpectralClustering/SklearnSpectralClustering.node.js",
+      "dist/nodes/SklearnMeanShift/SklearnMeanShift.node.js",
+      "dist/nodes/SklearnTruncatedSVD/SklearnTruncatedSVD.node.js",
+      "dist/nodes/SklearnNMF/SklearnNMF.node.js",
+      "dist/nodes/SklearnNormalizer/SklearnNormalizer.node.js",
+      "dist/nodes/SklearnBinarizer/SklearnBinarizer.node.js",
+      "dist/nodes/SklearnVotingClassifier/SklearnVotingClassifier.node.js",
+      "dist/nodes/SklearnStackingClassifier/SklearnStackingClassifier.node.js",
+      "dist/nodes/SklearnCalibratedClassifierCV/SklearnCalibratedClassifierCV.node.js",
+      "dist/nodes/SklearnElasticNet/SklearnElasticNet.node.js",
+      "dist/nodes/SklearnRidgeLasso/SklearnRidgeLasso.node.js",
+      "dist/nodes/SklearnMLP/SklearnMLP.node.js",
+      "dist/nodes/SklearnPipeline/SklearnPipeline.node.js"
     ]
   },
   "devDependencies": {
