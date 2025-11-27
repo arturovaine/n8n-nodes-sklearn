@@ -1,279 +1,232 @@
 # n8n-nodes-sklearn
 
-Custom n8n nodes for integrating scikit-learn machine learning algorithms into your n8n workflows.
+Custom n8n community nodes for integrating scikit-learn machine learning algorithms into your n8n workflows.
 
-## Features
+> **Important: Self-Hosted n8n Only**
+>
+> This package requires Python with scikit-learn installed and uses `child_process` to execute Python scripts. It is designed for **self-hosted n8n installations only** and is not compatible with n8n Cloud.
 
-This package provides n8n nodes for popular scikit-learn functionality:
+## Available Nodes (40)
 
-- **Sklearn Linear Regression**: Train and predict using linear regression models
-- **Sklearn Standard Scaler**: Standardize features by removing the mean and scaling to unit variance
+### Regression
+- **Linear Regression** - Simple and multiple linear regression
+- **Ridge / Lasso** - L2 and L1 regularized regression
+- **Elastic Net** - Combined L1+L2 regularization
+- **SVR** - Support Vector Regression
+- **Decision Tree Regressor** - Tree-based regression
+- **Random Forest Regressor** - Ensemble tree regression
+- **Gradient Boosting Regressor** - Boosted tree regression
+- **KNN Regressor** - K-Nearest Neighbors regression
+- **MLP Regressor** - Neural network regression
+
+### Classification
+- **Logistic Regression** - Binary and multiclass classification
+- **SVC** - Support Vector Classification
+- **Decision Tree Classifier** - Tree-based classification
+- **Random Forest Classifier** - Ensemble tree classification
+- **Gradient Boosting Classifier** - Boosted tree classification
+- **KNN Classifier** - K-Nearest Neighbors classification
+- **Naive Bayes** - Gaussian, Multinomial, Bernoulli variants
+- **MLP Classifier** - Neural network classification
+
+### Clustering
+- **KMeans** - Centroid-based clustering
+- **DBSCAN** - Density-based clustering
+- **Agglomerative Clustering** - Hierarchical clustering
+- **Spectral Clustering** - Graph-based clustering
+- **Mean Shift** - Mode-seeking clustering
+
+### Anomaly Detection
+- **Isolation Forest** - Outlier detection
+
+### Preprocessing
+- **Standard Scaler** - Zero mean, unit variance scaling
+- **MinMax Scaler** - Scale to [0,1] range
+- **Robust Scaler** - Outlier-robust scaling (median/IQR)
+- **Normalizer** - Row-wise L1/L2 normalization
+- **Binarizer** - Threshold-based binarization
+- **Label Encoder** - Encode categorical labels
+- **One Hot Encoder** - One-hot encode categories
+- **Simple Imputer** - Handle missing values
+
+### Feature Engineering
+- **PCA** - Principal Component Analysis
+- **Truncated SVD** - Dimensionality reduction for sparse data
+- **NMF** - Non-negative Matrix Factorization
+- **Polynomial Features** - Generate polynomial features
+- **TF-IDF Vectorizer** - Text to TF-IDF features
+- **Feature Selection** - SelectKBest, RFE, Variance Threshold
+
+### Ensemble Methods
+- **Voting Classifier** - Combine multiple classifiers
+- **Stacking Classifier** - Stacked generalization
+
+### Calibration
+- **Calibrated Classifier CV** - Probability calibration
+
+### Utilities
+- **Train Test Split** - Split data for training/testing
+- **Metrics** - Classification, regression, clustering metrics
+- **Cross Validation** - K-Fold, Stratified, LOO, Shuffle Split
+- **Grid Search CV** - Hyperparameter tuning
+- **Pipeline** - Chain transformers and estimators
+- **Datasets** - Load sample sklearn datasets
+
+## Requirements
+
+### Self-Hosted n8n
+- n8n version 0.190.0 or higher
+- Python 3.7+ installed on the server
+- scikit-learn and numpy Python packages
+
+```bash
+pip install scikit-learn numpy
+```
+
+### Why Self-Hosted Only?
+
+This package executes Python code via `child_process.spawn()` to run scikit-learn algorithms. This approach:
+- Requires Python runtime on the host system
+- Uses Node.js `child_process` module (restricted on n8n Cloud)
+- Cannot pass n8n's community node verification for Cloud deployment
+
+There is no pure JavaScript implementation of scikit-learn, making this architecture necessary.
 
 ## Installation
 
-### Prerequisites
+### Option 1: Install from npm
 
-1. **Python 3.7+** with scikit-learn installed:
-   ```bash
-   pip install scikit-learn numpy
-   ```
-
-2. **n8n** installed (version 0.190.0 or higher)
-
-### Installing the Package
-
-#### Option 1: Install from npm (after publishing)
 ```bash
+cd ~/.n8n/custom
 npm install n8n-nodes-sklearn
 ```
 
-#### Option 2: Local Development Installation
+Then restart n8n.
 
-1. Clone or download this repository
-2. Navigate to the package directory:
-   ```bash
-   cd n8n-nodes-sklearn
-   ```
+### Option 2: Install via n8n UI
 
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
+1. Go to **Settings** > **Community Nodes**
+2. Enter `n8n-nodes-sklearn`
+3. Click **Install**
+4. Restart n8n
 
-4. Build the package:
-   ```bash
-   npm run build
-   ```
+### Option 3: Docker
 
-5. Link the package to your n8n installation:
-   ```bash
-   npm link
-   ```
+If using Docker, ensure Python and scikit-learn are installed in your container:
 
-6. In your n8n custom nodes directory (usually `~/.n8n/custom`):
-   ```bash
-   npm link n8n-nodes-sklearn
-   ```
+```dockerfile
+FROM n8nio/n8n:latest
 
-7. Restart n8n to load the new nodes
+USER root
+RUN apk add --no-cache python3 py3-pip
+RUN pip3 install scikit-learn numpy
+USER node
+
+RUN cd /home/node/.n8n/custom && npm install n8n-nodes-sklearn
+```
 
 ## Usage
 
-### Sklearn Linear Regression
+### Basic Workflow Example
 
-#### Train Operation
+1. **Load Data** - Use HTTP Request, Read CSV, or other data source
+2. **Preprocess** - Scale features with Standard Scaler
+3. **Train** - Train a model (e.g., Random Forest Classifier)
+4. **Predict** - Use the trained model on new data
+5. **Evaluate** - Calculate metrics
 
-Train a linear regression model using your input data.
+### Train a Model
 
-**Input Data Format:**
-```json
+```
+Input Data:
 [
-  {
-    "feature1": 1.0,
-    "feature2": 2.0,
-    "feature3": 3.0,
-    "target": 10.5
-  },
-  {
-    "feature1": 2.0,
-    "feature2": 3.0,
-    "feature3": 4.0,
-    "target": 15.2
-  }
+  { "feature1": 1.0, "feature2": 2.0, "target": 0 },
+  { "feature1": 2.0, "feature2": 3.0, "target": 1 },
+  ...
 ]
-```
 
-**Parameters:**
-- **Feature Columns**: Comma-separated list of feature column names (e.g., `feature1,feature2,feature3`)
-- **Target Column**: Name of the target column (e.g., `target`)
-- **Fit Intercept**: Whether to calculate the intercept (default: true)
-- **Python Path**: Path to Python executable (default: `python3`)
+Parameters:
+- Feature Columns: feature1,feature2
+- Target Column: target
+- Python Path: python3
 
-**Output:**
-```json
+Output:
 {
-  "model": "{...}",
-  "coefficients": [1.2, 3.4, 2.1],
-  "intercept": 0.5,
-  "r2_score": 0.95,
-  "feature_columns": ["feature1", "feature2", "feature3"],
-  "training_samples": 100
+  "model": "{...serialized model...}",
+  "score": 0.95,
+  "classes": [0, 1],
+  ...
 }
 ```
 
-#### Predict Operation
+### Make Predictions
 
-Make predictions using a trained model.
-
-**Parameters:**
-- **Model Data**: JSON string containing the trained model (from train operation)
-- **Feature Columns**: Comma-separated list of feature columns (must match training)
-- **Python Path**: Path to Python executable
-
-**Output:**
-The original input data with an added `prediction` field.
-
-### Sklearn Standard Scaler
-
-#### Fit Transform Operation
-
-Fit the scaler to your data and transform it in one step.
-
-**Input Data Format:**
-```json
-[
-  {
-    "age": 25,
-    "income": 50000,
-    "score": 85
-  },
-  {
-    "age": 35,
-    "income": 75000,
-    "score": 92
-  }
-]
 ```
+Parameters:
+- Model Data: {{ $json.model }}
+- Feature Columns: feature1,feature2
 
-**Parameters:**
-- **Feature Columns**: Comma-separated list of columns to scale (e.g., `age,income,score`)
-- **With Mean**: Whether to center the data (default: true)
-- **With Std**: Whether to scale to unit variance (default: true)
-- **Output Prefix**: Prefix for scaled columns (default: `scaled_`)
-- **Python Path**: Path to Python executable
-
-**Output:**
-Original data with scaled features added:
-```json
+Output:
 {
-  "age": 25,
-  "income": 50000,
-  "score": 85,
-  "scaled_age": -0.707,
-  "scaled_income": -0.707,
-  "scaled_score": -0.707,
-  "scaler": "{...}",
-  "scaler_info": {
-    "mean": [30, 62500, 88.5],
-    "scale": [7.071, 17677.67, 4.95]
-  }
+  "feature1": 1.5,
+  "feature2": 2.5,
+  "prediction": 1,
+  "probabilities": [0.2, 0.8]
 }
 ```
 
-#### Fit Operation
+### Python Path Configuration
 
-Fit the scaler and save parameters for later use.
+By default, nodes use `python3`. To specify a different Python:
 
-**Output:**
-```json
-{
-  "scaler": "{...}",
-  "mean": [30, 62500, 88.5],
-  "scale": [7.071, 17677.67, 4.95],
-  "variance": [50, 312500000, 24.5],
-  "feature_columns": ["age", "income", "score"],
-  "fitted_samples": 100
-}
-```
-
-#### Transform Operation
-
-Transform data using a previously fitted scaler.
-
-**Parameters:**
-- **Scaler Data**: JSON string from fit operation
-- **Feature Columns**: Comma-separated list of columns (must match fitted columns)
-- **Output Prefix**: Prefix for scaled columns
-
-## Example Workflows
-
-### Example 1: Simple Linear Regression Pipeline
-
-1. **Read CSV Node**: Load your training data
-2. **Sklearn Linear Regression (Train)**: Train the model
-3. **Set Node**: Store the model in a variable
-4. **Read CSV Node**: Load new data for prediction
-5. **Sklearn Linear Regression (Predict)**: Make predictions
-
-### Example 2: Preprocessing Pipeline
-
-1. **HTTP Request Node**: Fetch data from API
-2. **Sklearn Standard Scaler (Fit Transform)**: Normalize features
-3. **Sklearn Linear Regression (Train)**: Train on normalized data
-4. **Code Node**: Evaluate model performance
-
-## Configuration
-
-### Python Path
-
-By default, nodes use `python3` command. If you need to specify a different Python executable:
-
-1. Set the Python Path parameter in each node
-2. Or set an environment variable before starting n8n:
+1. Set the **Python Path** parameter in each node, or
+2. Set environment variable before starting n8n:
    ```bash
-   export PYTHON_PATH=/path/to/python3
+   export PYTHON_PATH=/usr/local/bin/python3.10
    n8n start
    ```
 
-### Troubleshooting
+## Troubleshooting
 
-**Error: Python script failed**
-- Ensure Python 3.7+ is installed
+### Python script failed
+- Verify Python 3.7+ is installed: `python3 --version`
 - Verify scikit-learn is installed: `python3 -c "import sklearn; print(sklearn.__version__)"`
-- Check Python path in node parameters
+- Check the Python Path parameter matches your installation
 
-**Error: Feature column not found**
-- Verify column names match your input data exactly (case-sensitive)
+### Feature column not found
+- Column names are case-sensitive
 - Check for extra spaces in column names
+- Verify the column exists in your input data
 
-**Memory issues with large datasets**
-- Consider processing data in batches
-- Use n8n's batch processing features
-- Increase Node.js memory limit: `NODE_OPTIONS=--max-old-space-size=4096 n8n start`
+### Memory issues
+- Process data in smaller batches
+- Increase Node.js memory: `NODE_OPTIONS=--max-old-space-size=4096 n8n start`
+
+### Model serialization issues
+- Models are serialized using Python's pickle + base64
+- Ensure the same Python/sklearn version for train and predict
 
 ## Development
 
-### Building
-
 ```bash
+# Clone the repository
+git clone https://github.com/arturovaine/n8n-nodes-sklearn.git
+cd n8n-nodes-sklearn
+
+# Install dependencies
+npm install
+
+# Build
 npm run build
-```
 
-### Linting
-
-```bash
+# Lint
 npm run lint
-npm run lintfix  # Auto-fix issues
+
+# Link for local development
+npm link
+cd ~/.n8n/custom
+npm link n8n-nodes-sklearn
 ```
-
-### Adding New Nodes
-
-1. Create a new directory in `nodes/`
-2. Create `YourNode.node.ts` implementing `INodeType`
-3. Add the node to `package.json` under `n8n.nodes`
-4. Run `npm run build`
-
-## Roadmap
-
-Future nodes planned:
-
-- Logistic Regression
-- Decision Trees / Random Forest
-- K-Means Clustering
-- Principal Component Analysis (PCA)
-- Support Vector Machines (SVM)
-- Model evaluation metrics
-- Cross-validation utilities
-
-## Contributing
-
-Contributions are welcome! Please:
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
 
 ## License
 
@@ -281,11 +234,10 @@ MIT
 
 ## Support
 
-For issues and questions:
-- GitHub Issues: https://github.com/arturovaine/n8n-nodes-sklearn/issues
-- n8n Community Forum: https://community.n8n.io/
+- **GitHub Issues**: https://github.com/arturovaine/n8n-nodes-sklearn/issues
+- **n8n Community Forum**: https://community.n8n.io/
 
 ## Acknowledgments
 
-- Built on top of the excellent [n8n](https://n8n.io/) workflow automation platform
-- Uses [scikit-learn](https://scikit-learn.org/) for machine learning functionality
+- [n8n](https://n8n.io/) - Workflow automation platform
+- [scikit-learn](https://scikit-learn.org/) - Machine learning library for Python
